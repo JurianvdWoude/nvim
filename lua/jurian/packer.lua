@@ -70,5 +70,6 @@ return require('packer').startup(function(use)
     use{'nvim-treesitter/nvim-treesitter-context'}
     use('theprimeagen/harpoon')                                 -- Harpoon bookmarking
     use{'codota/tabnine-nvim', run = './dl_binaries.sh'}        -- Tabnine auto-completion
-    use{'windwp/nvim-ts-autotag'}				-- Autotag tag-completion
+    use{'windwp/nvim-ts-autotag'}                               -- Autotag tag-completion
+    use{'christoomey/vim-tmux-navigator'}
 end)
