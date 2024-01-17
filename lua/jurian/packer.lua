@@ -66,6 +66,11 @@ return require('packer').startup(function(use)
         end
     })
 
+    -- Git sign extension
+    use({
+        'lewis6991/gitsigns.nvim'
+    })
+
     use{'tpope/vim-fugitive'}                                   -- Git intergration
     use{'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}   -- Treesitter parser
     use{'nvim-treesitter/nvim-treesitter-context'}              -- Treesitter context parser 
