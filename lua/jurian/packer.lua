@@ -6,7 +6,15 @@ return require('packer').startup(function(use)
     use 'f-person/git-blame.nvim'
 
     -- Add in Laravel support
-    use 'adalessa/laravel.nvim'
+    use {
+        "adalessa/laravel.nvim",
+        requires = {
+            "nvim-telescope/telescope.nvim",
+            "tpope/vim-dotenv",
+            "MunifTanjim/nui.nvim",
+            "nvimtools/none-ls.nvim",
+        }
+    }
 
     -- Telescope fuzzy finder
     use {
@@ -68,6 +76,9 @@ return require('packer').startup(function(use)
 
     -- Git sign extension
     use({'lewis6991/gitsigns.nvim'})
+
+    -- Linting and code checking
+    use({'nvimtools/none-ls.nvim'})
 
     use{'tpope/vim-fugitive'}                                   -- Git integration`
     use{'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}   -- Treesitter parser
