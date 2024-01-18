@@ -78,11 +78,6 @@ return require('packer').startup(function(use)
         end
     })
 
-    -- Git sign extension
-    use({
-        'lewis6991/gitsigns.nvim'
-    })
-
     -- Auto-closing bracket's
     use ({
         'windwp/nvim-autopairs',
