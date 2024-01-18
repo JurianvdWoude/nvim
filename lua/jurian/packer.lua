@@ -6,7 +6,15 @@ return require('packer').startup(function(use)
     use 'f-person/git-blame.nvim'
 
     -- Add in Laravel support
-    use 'adalessa/laravel.nvim'
+    use {
+        "adalessa/laravel.nvim",
+        requires = {
+            "nvim-telescope/telescope.nvim",
+            "tpope/vim-dotenv",
+            "MunifTanjim/nui.nvim",
+            "nvimtools/none-ls.nvim",
+        }
+    }
 
     -- Telescope fuzzy finder
     use {
@@ -31,6 +39,7 @@ return require('packer').startup(function(use)
             {'hrsh7th/cmp-path'},
             {'hrsh7th/cmp-nvim-lsp'},
             {'hrsh7th/cmp-nvim-lua'},
+            {'saadparwaiz1/cmp_luasnip'},
         }
     }
 
@@ -52,6 +61,9 @@ return require('packer').startup(function(use)
         }
     })
 
+    -- Vscode autocomplete pictogram
+    use ({'onsails/lspkind.nvim'})
+
     -- Vscode styling
     use ({
         'Mofiqul/vscode.nvim',
@@ -71,11 +83,39 @@ return require('packer').startup(function(use)
         'lewis6991/gitsigns.nvim'
     })
 
-    use{'tpope/vim-fugitive'}                                   -- Git intergration
+    -- Auto-closing bracket's
+    use ({
+        'windwp/nvim-autopairs',
+        config = function()
+            require('nvim-autopairs').setup {}
+        end
+    })
+
+    -- Auto-closing tags
+    use ({
+        'windwp/nvim-ts-autotag',
+        config = function()
+            require('nvim-ts-autotag').setup {}
+        end
+    })
+
+    -- Git sign extension
+    use({'lewis6991/gitsigns.nvim'})
+
+    -- Linting and code checking
+    use({'nvimtools/none-ls.nvim'})
+
+    -- File tree
+    use({
+        'stevearc/oil.nvim',
+        config = function()
+            require("oil").setup()
+        end
+    })
+
+    use{'tpope/vim-fugitive'}                                   -- Git integration`
     use{'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}   -- Treesitter parser
-    use{'nvim-treesitter/nvim-treesitter-context'}              -- Treesitter context parser 
+    use{'nvim-treesitter/nvim-treesitter-context'}              -- Treesitter context parser
     use('theprimeagen/harpoon')                                 -- Harpoon bookmarking
-    use{'codota/tabnine-nvim', run = './dl_binaries.sh'}        -- Tabnine auto-completion
-    use{'windwp/nvim-ts-autotag'}                               -- Autotag tag-completion
-    use{'christoomey/vim-tmux-navigator'}                       -- Tmux integration
+    use{'christoomey/vim-tmux-navigator'}
 end)

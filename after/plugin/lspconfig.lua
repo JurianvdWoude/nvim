@@ -1,17 +1,19 @@
 local lspconfig = require('lspconfig')
 lspconfig.tsserver.setup {}
+lspconfig.intelephense.setup {}
+lspconfig.anakin_language_server.setup {}
 
--- Global mappings 
+-- Global mappings
 vim.keymap.set('n', '<leader>ge', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>gq', vim.diagnostic.setloclist)
 
 -- Keymaps
-vim.api.nvim_create_autocmd('LspAttach', {    
+vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
         -- Enable completion trigger
-        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+        vim.bo[ev.buf].omnifunc = 'vi:lua.vim.lsp.omnifunc'
 
         -- Buffer local mappings
         local opts = { buffer = ev.buffer }
