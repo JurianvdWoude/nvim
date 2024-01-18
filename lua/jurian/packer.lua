@@ -100,6 +100,14 @@ return require('packer').startup(function(use)
     -- Linting and code checking
     use({'nvimtools/none-ls.nvim'})
 
+    -- File tree
+    use({
+        'stevearc/oil.nvim',
+        config = function()
+            require("oil").setup()
+        end
+    })
+
     use{'tpope/vim-fugitive'}                                   -- Git integration`
     use{'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}   -- Treesitter parser
     use{'nvim-treesitter/nvim-treesitter-context'}              -- Treesitter context parser
