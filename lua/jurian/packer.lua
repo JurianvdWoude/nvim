@@ -61,6 +61,9 @@ return require('packer').startup(function(use)
         }
     })
 
+    -- Vscode autocomplete pictogram
+    use ({'onsails/lspkind.nvim'})
+
     -- Vscode styling
     use ({
         'Mofiqul/vscode.nvim',
@@ -75,6 +78,22 @@ return require('packer').startup(function(use)
         end
     })
 
+    -- Auto-closing bracket's
+    use ({
+        'windwp/nvim-autopairs',
+        config = function()
+            require('nvim-autopairs').setup {}
+        end
+    })
+
+    -- Auto-closing tags
+    use ({
+        'windwp/nvim-ts-autotag',
+        config = function()
+            require('nvim-ts-autotag').setup {}
+        end
+    })
+
     -- Git sign extension
     use({'lewis6991/gitsigns.nvim'})
 
@@ -86,6 +105,5 @@ return require('packer').startup(function(use)
     use{'nvim-treesitter/nvim-treesitter-context'}              -- Treesitter context parser
     use{'ludovicchabant/vim-gutentags'}                         -- Gutentags CTags
     use('theprimeagen/harpoon')                                 -- Harpoon bookmarking
-    use{'windwp/nvim-ts-autotag'}                               -- Autotag tag-completion
     use{'christoomey/vim-tmux-navigator'}
 end)
