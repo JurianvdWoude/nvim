@@ -5,7 +5,9 @@ null_ls.setup({
         null_ls.builtins.formatting.stylua,
         null_ls.builtins.diagnostics.eslint,
         -- null_ls.builtins.completion.spell,
-        null_ls.builtins.diagnostics.mypy,
+        null_ls.builtins.diagnostics.mypy.with({
+            extra_args = {"--check-untyped-defs"}
+        }),
         null_ls.builtins.diagnostics.phpcs,
     },
 })

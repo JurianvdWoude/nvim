@@ -2,12 +2,36 @@ local lspconfig = require('lspconfig')
 lspconfig.tsserver.setup {}
 lspconfig.intelephense.setup {}
 lspconfig.anakin_language_server.setup {}
+lspconfig.dockerls.setup {}
+lspconfig.lua_ls.setup {
+    on_init = function(client)
+        local path = client.workspace_folders[1].name
+        if not vim.loop.fs_stat(path..'/.luarc.json') and not vim.loop.fs_stat(path..'/luarc.jsonc') then
+            client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
+                lua = {
+                    runtime = {
+                        version = 'LuaJIT'
+                    },
+                    workspace = {
+                        checkThirdParty = false,
+                        library = {
+                            vim.env.VIMRUNTIME
+                        }
+                    }
+                }
+            })
+
+            client.notify("workspace/didChangeConfiguration", {settings = client.config.settings})
+            end
+            return true
+        end
+}
 
 -- Global mappings
-vim.keymap.set('n', '<leader>ge', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<leader>gq', vim.diagnostic.setloclist)
+-- vim.keymap.set('n', '<leader>ge', vim.diagnostic.open_float)
+-- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+-- vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+-- vim.keymap.set('n', '<leader>gq', vim.diagnostic.setloclist)
 
 -- Keymaps
 vim.api.nvim_create_autocmd('LspAttach', {

@@ -1,4 +1,4 @@
 require('gitblame').setup {
-    gitblame_delay = 1000
+    virtual_text_column = 80,
 }
 
