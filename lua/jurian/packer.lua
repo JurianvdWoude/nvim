@@ -175,6 +175,27 @@ return require('packer').startup(function(use)
         end
     })
 
+    -- Extended % vim-matchup
+    use {
+        'andymass/vim-matchup',
+        setup = function()
+            vim.g.matchup_matchparen_offscreen = { method = "popup" }
+        end,
+    }
+
+    -- Documentation generation
+    use {
+        'danymat/neogen',
+        config = function()
+            require('neogen').setup {}
+        end,
+        requires = "nvim-treesitter/nvim-treesitter",
+        -- Uncomment next line if you want to follow only stable versions
+        tag = "*"
+    }
+
+    use{'folke/zen-mode.nvim'}                                  -- Read mode
+    use{'laytan/cloak.nvim'}                                    -- Hide env
     use{'tpope/vim-fugitive'}                                   -- Git integration`
     use{'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}   -- Treesitter parser
     use{'nvim-treesitter/nvim-treesitter-context'}              -- Treesitter context parser
