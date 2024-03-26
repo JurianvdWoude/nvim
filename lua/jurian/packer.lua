@@ -187,9 +187,9 @@ require('packer').startup(function(use)
         end
     }
 
-    -- Code documentation neogen
+    -- Documentation generation
     use {
-        "danymat/neogen",
+        'danymat/neogen',
         config = function()
             require('neogen').setup {}
         end,
@@ -304,6 +304,7 @@ require('packer').startup(function(use)
     use{"mxsdev/nvim-dap-vscode-js"}                            -- Debugging adapter for JS
     use{"mfussenegger/nvim-dap-python"}                         -- Debugging adapter for Python
     use{'folke/zen-mode.nvim'}                                  -- Read mode
+    use{'tpope/vim-fugitive'}                                   -- Git integration`
     use{'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}   -- Treesitter parser
     use{'nvim-treesitter/nvim-treesitter-context'}              -- Treesitter context parser
     use{'christoomey/vim-tmux-navigator'}
