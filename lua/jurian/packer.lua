@@ -1,5 +1,5 @@
-return require('packer').startup(function(use)
-    -- Lets packer manage itself
+require('packer').startup(function(use)
+   -- Lets packer manage itself
     use 'wbthomason/packer.nvim'
 
     -- Show who made code commits
@@ -13,14 +13,26 @@ return require('packer').startup(function(use)
             "tpope/vim-dotenv",
             "MunifTanjim/nui.nvim",
             "nvimtools/none-ls.nvim",
-        }
+        },
+        config = function()
+            require('laravel').setup({
+                lsp_server = "intelephense"
+            })
+        end,
     }
 
     -- Telescope fuzzy finder
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.4',
         -- or                         branch = '0.1.x',
-        requires = { { 'nvim-lua/plenary.nvim' } }
+        requires = {
+            { 'nvim-lua/plenary.nvim' },
+        },
+        config = function()
+            local telescope = require("telescope")
+            telescope.load_extension("harpoon")
+            telescope.load_extension("notify")
+        end,
     }
 
     -- LSP
@@ -39,7 +51,6 @@ return require('packer').startup(function(use)
             {'hrsh7th/cmp-path'},
             {'hrsh7th/cmp-nvim-lsp'},
             {'hrsh7th/cmp-nvim-lua'},
-            {'saadparwaiz1/cmp_luasnip'},
         }
     }
 
@@ -63,14 +74,14 @@ return require('packer').startup(function(use)
                 },
                 sections = {
                     lualine_a = {
-                        {'fancy_mode', width = 3} 
+                        {'fancy_mode', width = 3}
                     },
                     lualine_b = {
                         {'fancy_branch'},
                         {'fancy_diff'},
                     },
                     lualine_c = {
-                        {'fancy_cwd', substitute_home = true}
+                        {'fancy_cwd', substitute_home = true},
                     },
                     lualine_x = {
                         {'fancy_macro'},
@@ -167,17 +178,133 @@ return require('packer').startup(function(use)
     -- Linting and code checking
     use({'nvimtools/none-ls.nvim'})
 
-    -- File tree
-    use({
-        'stevearc/oil.nvim',
-        config = function()
-            require("oil").setup()
+    -- Extended % vim-matchup
+    use {
+        'andymass/vim-matchup',
+        setup = function()
+            -- may set any options here
+            vim.g.matchup_matchparen_offscreen = { method = "popup" }
         end
-    })
+    }
 
-    use{'tpope/vim-fugitive'}                                   -- Git integration`
+    -- Code documentation neogen
+    use {
+        "danymat/neogen",
+        config = function()
+            require('neogen').setup {}
+        end,
+        requires = "nvim-treesitter/nvim-treesitter",
+        -- Uncomment next line if you want to follow only stable versions
+        tag = "*"
+    }
+
+    -- Debugger
+    use {
+        "mfussenegger/nvim-dap",
+        requires = {
+            {'theHamsta/nvim-dap-virtual-text'},
+            {'nvim-telescope/telescope-dap.nvim'},
+            {'jbyuki/one-small-step-for-vimkind'},
+        },
+    }
+
+    -- Debugger UI
+    use {
+        "rcarriga/nvim-dap-ui",
+        requires = {"mfussenegger/nvim-dap"}
+    }
+
+    use {
+        "folke/neodev.nvim",
+        requires = {"rcarriga/nvim-dap-ui"},
+        config = function()
+            require('neodev').setup({
+                library = { plugins = { "nvim-dap-ui" }, types = true },
+            })
+        end
+    }
+
+    -- Search-and-replace package
+    use {
+        "roobert/search-replace.nvim",
+        config = function()
+            require("search-replace").setup({
+                default_replace_single_buffer_options = "gcI",
+                default_replace_multi_buffer_options = "egcI",
+            })
+        end,
+    }
+
+    use{
+        "rcarriga/nvim-notify",
+        config = function()
+            require('notify').setup{}
+        end,
+    }
+
+    -- Comments
+    use{
+        "numToStr/Comment.nvim",
+        config = function()
+            require("Comment").setup()
+        end,
+    }
+
+    -- Highlight TODO
+    use {
+        'folke/todo-comments.nvim',
+        requires = {
+            'nvim-lua/plenary.nvim'
+        },
+        config = function()
+            require('todo-comments').setup{}
+        end,
+    }
+
+    -- Github links
+    use {
+        "9seconds/repolink.nvim",
+        requires = {
+            "nvim-lua/plenary.nvim"
+        },
+        opt = true,
+        cmd = {
+            "RepoLink"
+        },
+        config = function()
+            require("repolink").setup({})
+        end,
+    }
+
+    use {
+        "L3MON4D3/LuaSnip",
+        tag = "v2.*",
+        run = "make install_jsregexp"
+    }
+
+    -- Move lines
+    use {
+        'booperlv/nvim-gomove',
+        config = function()
+            require('gomove').setup({
+                map_defaults = false,
+                reindent = true,
+                undojoin = true,
+                move_past_end_col = false,
+            })
+        end,
+    }
+
+
+    use {"sindrets/diffview.nvim"}                              -- Diff view
+    use{"nvim-neotest/nvim-nio"}
+    use{"gelguy/wilder.nvim"}                                   -- Wild menu
+    use{"mhartington/formatter.nvim"}                           -- Formatting
+    use{'theprimeagen/harpoon'}                                 -- Marking
+    use{"mxsdev/nvim-dap-vscode-js"}                            -- Debugging adapter for JS
+    use{"mfussenegger/nvim-dap-python"}                         -- Debugging adapter for Python
+    use{'folke/zen-mode.nvim'}                                  -- Read mode
     use{'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}   -- Treesitter parser
     use{'nvim-treesitter/nvim-treesitter-context'}              -- Treesitter context parser
-    use('theprimeagen/harpoon')                                 -- Harpoon bookmarking
     use{'christoomey/vim-tmux-navigator'}
 end)
