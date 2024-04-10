@@ -1,1 +1,1 @@
-vim.keymap.set("n", "<leader>dl", "<CMD>RepoLink<CR>");
+vim.keymap.set("n", "<leader>fl", "<CMD>RepoLink<CR>");

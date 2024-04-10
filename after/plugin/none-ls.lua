@@ -1,13 +1,49 @@
-local null_ls = require("null-ls")
-
-null_ls.setup({
-    sources = {
-        null_ls.builtins.formatting.stylua,
-        null_ls.builtins.diagnostics.mypy.with({
-            extra_args = {"--check-untyped-defs"}
-        }),
-        null_ls.builtins.diagnostics.phpcs,
-        null_ls.builtins.formatting.blade_formatter,
-        -- null_ls.builtins.diagnostics.pint,
-    },
-})
+-- local null_ls = require("null-ls")
+-- local eslint = require("eslint")
+-- 
+-- null_ls.setup({
+--     sources = {
+--         null_ls.builtins.formatting.stylua,
+--         null_ls.builtins.diagnostics.mypy.with({
+--             extra_args = {"--check-untyped-defs"}
+--         }),
+--         -- null_ls.builtins.diagnostics.eslint.with({
+--         --     filetypes = {"javascript", "javascriptreact", "typescript", "typescriptreact"}
+--         -- }),
+--         null_ls.builtins.formatting.prettierd,
+--         -- null_ls.builtins.diagnostics.phpcs.with({
+--         --     diagnostics_postprocess = function(diagnostic)
+--         --         diagnostic.severity = (
+--         --             diagnostic.message:find("oc comment")
+--         --             or diagnostic.message:find("must be on a line by itself")
+--         --             or diagnostic.message:find("last content on the line")
+--         --             or diagnostic.message:find("must be on the same line")
+--         --             or diagnostic.message:find("must be on a new line")
+--         --         )
+--         --         and vim.diagnostic.severity["WARN"]
+--         --         or diagnostic.severity
+--         --     end
+--         -- }),
+--         null_ls.builtins.formatting.blade_formatter,
+--     },
+-- })
+-- 
+-- eslint.setup({
+--     bin = 'eslint',
+--     code_actions = {
+--         enable = true,
+--         apply_on_save = {
+--             enable = true,
+--             types = {"directive", "problem", "suggestion", "layout"},
+--         },
+--         disable_rule_comment = {
+--             enable = true,
+--             location = "separate_line",
+--         }
+--     },
+--     diagnostics = {
+--         enable = true,
+--         report_unused_disable_directives = false,
+--         run_on = "type",
+--     }
+-- })

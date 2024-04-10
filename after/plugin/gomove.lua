@@ -1,4 +1,4 @@
-local gomove = require("gomove")
+-- local gomove = require("gomove")
 
 
 -- vim.keymap.set("n", "<leader>fj", gomove.GoNSMDown())

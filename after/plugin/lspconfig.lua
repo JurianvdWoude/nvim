@@ -4,8 +4,10 @@ lspconfig.intelephense.setup {}
 lspconfig.anakin_language_server.setup {}
 lspconfig.dockerls.setup {}
 lspconfig.html.setup {}
+lspconfig.tailwindcss.setup {}
 lspconfig.ruff_lsp.setup {}
 lspconfig.clangd.setup {}
+lspconfig.eslint.setup {}
 lspconfig.lua_ls.setup {
     on_init = function(client)
         local path = client.workspace_folders[1].name

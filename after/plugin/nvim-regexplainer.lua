@@ -9,7 +9,7 @@
 --     -- },
 --     auto = true,
 -- }
-
+--
 -- vim.keymap.set("n", "<leader>rr", regexplainer.toggle)
 -- vim.keymap.set("n", "<leader>ry", "<CMD>RegexplainerYank +<CR>")
-
+--

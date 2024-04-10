@@ -12,7 +12,7 @@ require('packer').startup(function(use)
             "nvim-telescope/telescope.nvim",
             "tpope/vim-dotenv",
             "MunifTanjim/nui.nvim",
-            "nvimtools/none-ls.nvim",
+--             "nvimtools/none-ls.nvim",
         },
         config = function()
             require('laravel').setup({
@@ -51,6 +51,7 @@ require('packer').startup(function(use)
             {'hrsh7th/cmp-path'},
             {'hrsh7th/cmp-nvim-lsp'},
             {'hrsh7th/cmp-nvim-lua'},
+            {"L3MON4D3/LuaSnip"},
         }
     }
 
@@ -176,7 +177,12 @@ require('packer').startup(function(use)
     use({'lewis6991/gitsigns.nvim'})
 
     -- Linting and code checking
-    use({'nvimtools/none-ls.nvim'})
+--     use({
+--         'nvimtools/none-ls.nvim',
+--         requires = {
+--             "MunifTanjim/eslint.nvim"
+--         }
+--     })
 
     -- Extended % vim-matchup
     use {
@@ -283,21 +289,91 @@ require('packer').startup(function(use)
     }
 
     -- Move lines
+    -- use {
+    --     'booperlv/nvim-gomove',
+    --     config = function()
+    --         require('gomove').setup({
+    --             map_defaults = false,
+    --             reindent = true,
+    --             undojoin = true,
+    --             move_past_end_col = false,
+    --         })
+    --     end,
+    --     }
+
+    -- Markdown preview
+    -- use({
+    --     "iamcco/markdown-preview.nvim",
+    --     run = function() vim.fn["mkdp#util#install"]() end,
+    -- })
+
+    -- Env parser
     use {
-        'booperlv/nvim-gomove',
+        "ellisonleao/dotenv.nvim",
         config = function()
-            require('gomove').setup({
-                map_defaults = false,
-                reindent = true,
-                undojoin = true,
-                move_past_end_col = false,
+            require('dotenv').setup({
+                enable_on_load = true,
+                verbose = false,
             })
         end,
     }
 
+    -- Database client
+    use {
+        "kndndrj/nvim-dbee",
+        requires = {
+            "MunifTanjim/nui.nvim",
+            "ellisonleao/dotenv.nvim"
+        },
+        run = function()
+            -- Install tries to automatically detect the install method.
+            -- if it fails, try calling it with one of these parameters:
+            --    "curl", "wget", "bitsadmin", "go"
+            require("dbee").install()
+        end,
+        config = function()
+            require('dbee').setup()
+        end,
+    }
 
-    use {"sindrets/diffview.nvim"}                              -- Diff view
-    use{"nvim-neotest/nvim-nio"}
+    -- Linter
+    use {
+        "mfussenegger/nvim-lint",
+        event = {
+            "BufReadPre",
+            "BufNewFile",
+        },
+        config = function()
+            local lint = require("lint")
+
+            lint.linter_by_ft = {
+                javascript = { "eslint_d" },
+                typescript = { "eslint_d" },
+                javascriptreact = { "eslint_d" },
+                typescriptreact = { "eslint_d" },
+                svelte = { "eslint_d" },
+                terraform = { "tflint" },
+            }
+
+            local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+            vim.api.nvim_create_autocmd({
+                "BufEnter",
+                "BufWritePost",
+                "InsertLeave"
+            }, {
+                group = lint_augroup,
+                callback = function()
+                    lint.try_lint()
+                end,
+            })
+
+            vim.keymap.set("n", "<leader>fg", function() lint.try_lint() end, { desc = "Trigger linting for the current file" })
+        end,
+    }
+
+    use{"aznhe21/actions-preview.nvim"}                         -- Code actions
+    use{"sindrets/diffview.nvim"}                               -- Diff view
+    use{"nvim-neotest/nvim-nio"}                                -- Async IO
     use{"gelguy/wilder.nvim"}                                   -- Wild menu
     use{"mhartington/formatter.nvim"}                           -- Formatting
     use{'theprimeagen/harpoon'}                                 -- Marking

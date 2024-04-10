@@ -16,3 +16,9 @@ vim.keymap.set("n", "<leader>l", '<C-w>l', { desc = 'Move to the right window' }
 
 vim.keymap.set("n", "<leader>ti", '<CMD>!bash ~/.dotfiles/scripts/start_sesh.sh<CR>', { desc = 'Start all tmux sessions'})
 vim.keymap.set("n", "<leader>tx", '<CMD>!bash ~/.dotfiles/scripts/kill_sesh.sh<CR>', { desc = 'Kill all tmux sessions'})
+
+-- vim.keymap.set("n", "<leader>tr", function()
+--     local passwd = vim.fn.input('Password > ')
+--     '<CMD>write !sudo tee > /dev/null %<CR>'
+--     end,
+-- { desc = 'Become root in inside of vim' })
