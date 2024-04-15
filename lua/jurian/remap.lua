@@ -1,6 +1,7 @@
 vim.g.mapleader = " "
 -- vim.keymap.set("n", "<leader>fs", '<CMD>Oil<CR>', { desc = 'Open parent directory' })
 vim.keymap.set("n", "<leader>fs", '<CMD>:Ex<CR>', { desc = 'Open parent directory' })
+vim.keymap.set("n", "<leader>f\\", '<CMD>:Lexplore %:p:h<CR>', { desc = 'Open root directory' })
 vim.keymap.set("n", "<C-u>", '<C-u>zz', { desc = 'Move up a screen' })
 vim.keymap.set("n", "<C-d>", '<C-d>zz', { desc = 'Move down a screen' })
 

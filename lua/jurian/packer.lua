@@ -101,9 +101,6 @@ require('packer').startup(function(use)
         end
     })
 
-    -- Vscode autocomplete pictogram
-    use ({'onsails/lspkind.nvim'})
-
     -- Atom's OneDark style
     use ({
         'navarasu/onedark.nvim',
@@ -172,17 +169,6 @@ require('packer').startup(function(use)
             require('nvim-ts-autotag').setup {}
         end
     })
-
-    -- Git sign extension
-    use({'lewis6991/gitsigns.nvim'})
-
-    -- Linting and code checking
---     use({
---         'nvimtools/none-ls.nvim',
---         requires = {
---             "MunifTanjim/eslint.nvim"
---         }
---     })
 
     -- Extended % vim-matchup
     use {
@@ -282,6 +268,7 @@ require('packer').startup(function(use)
         end,
     }
 
+    -- Snippets
     use {
         "L3MON4D3/LuaSnip",
         tag = "v2.*",
@@ -315,24 +302,6 @@ require('packer').startup(function(use)
                 enable_on_load = true,
                 verbose = false,
             })
-        end,
-    }
-
-    -- Database client
-    use {
-        "kndndrj/nvim-dbee",
-        requires = {
-            "MunifTanjim/nui.nvim",
-            "ellisonleao/dotenv.nvim"
-        },
-        run = function()
-            -- Install tries to automatically detect the install method.
-            -- if it fails, try calling it with one of these parameters:
-            --    "curl", "wget", "bitsadmin", "go"
-            require("dbee").install()
-        end,
-        config = function()
-            require('dbee').setup()
         end,
     }
 
@@ -371,6 +340,30 @@ require('packer').startup(function(use)
         end,
     }
 
+    -- Formatting
+    use {
+        "stevearc/conform.nvim",
+        event = {
+            "BufReadPre",
+            "BufNewFile"
+        },
+        config = function()
+            require("conform").setup({
+                formatters_by_ft = {
+                    lua = { "stylua" },
+                    javascript = { { "prettierd", "prettier" } },
+                    typescript = { { "prettierd", "prettier" } },
+                    javascriptreact = { { "prettierd", "prettier" } },
+                    typescriptreact = { { "prettierd", "prettier" } },
+                    json = { { "prettierd", "prettier" } },
+                    html = { "htmlbeautifier" },
+                },
+            })
+        end,
+    }
+
+    use{'onsails/lspkind.nvim'}                                 -- Vscode autocomplete pictogram
+    use{'lewis6991/gitsigns.nvim'}                              -- Git sign extension
     use{"aznhe21/actions-preview.nvim"}                         -- Code actions
     use{"sindrets/diffview.nvim"}                               -- Diff view
     use{"nvim-neotest/nvim-nio"}                                -- Async IO
