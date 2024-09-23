@@ -1,5 +1,5 @@
 local lspconfig = require('lspconfig')
-lspconfig.tsserver.setup {}
+lspconfig.ts_ls.setup {}
 lspconfig.intelephense.setup {}
 lspconfig.anakin_language_server.setup {}
 lspconfig.dockerls.setup {}
