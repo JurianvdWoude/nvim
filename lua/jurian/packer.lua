@@ -5,22 +5,6 @@ require('packer').startup(function(use)
     -- Show who made code commits
     use 'f-person/git-blame.nvim'
 
-    -- Add in Laravel support
-    use {
-        "adalessa/laravel.nvim",
-        requires = {
-            "nvim-telescope/telescope.nvim",
-            "tpope/vim-dotenv",
-            "MunifTanjim/nui.nvim",
---             "nvimtools/none-ls.nvim",
-        },
-        config = function()
-            require('laravel').setup({
-                lsp_server = "intelephense"
-            })
-        end,
-    }
-
     -- Telescope fuzzy finder
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.4',
@@ -151,7 +135,7 @@ require('packer').startup(function(use)
         'folke/trouble.nvim',
         requires = {
             {'nvim-tree/nvim-web-devicons'}
-        }
+        },
     })
 
     -- Auto-closing bracket's

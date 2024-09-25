@@ -1,6 +1,0 @@
--- local laravel = require('laravel')
--- local ui = require('laravel.config.ui')
--- local cmd_options = require('laravel.config.command_options')
--- local environments = require('laravel.config.environments')
--- local resources = require('laravel.config.resources')
-vim.keymap.set("n", "<leader>fl", "<CMD>Laravel artisan<CR>")

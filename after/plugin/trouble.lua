@@ -1,3 +1,3 @@
 local trouble = require('trouble')
 
-vim.keymap.set("n", "<leader>fw", function() trouble.toggle() end)
+vim.keymap.set("n", "<leader>fw", function() trouble.toggle('diagnostics') end)
